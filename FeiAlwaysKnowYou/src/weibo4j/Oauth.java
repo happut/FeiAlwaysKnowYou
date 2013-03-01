@@ -1,6 +1,8 @@
 package weibo4j;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -8,12 +10,15 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.logging.Log;
+
 import weibo4j.http.AccessToken;
 import weibo4j.http.BASE64Encoder;
 import weibo4j.model.PostParameter;
 import weibo4j.model.WeiboException;
 import weibo4j.org.json.JSONException;
 import weibo4j.org.json.JSONObject;
+import weibo4j.util.BareBonesBrowserLaunch;
 import weibo4j.util.WeiboConfig;
 
 public class Oauth extends Weibo{
@@ -105,4 +110,21 @@ public class Oauth extends Weibo{
 				+ "&state="+state
 				+ "&scope="+scope;
 	}
+	
+	public static void main(String[] args) throws WeiboException, IOException {
+        Oauth oauth = new Oauth();
+        BareBonesBrowserLaunch.openURL(oauth.authorize("code","0","0"));
+        System.out.println(oauth.authorize("code","0","0"));
+        System.out.print("Hit enter when it's done.[Enter]:");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String code = br.readLine();
+        try{
+            System.out.println(oauth.getAccessTokenByCode(code));
+        } catch (WeiboException e) {
+            if(401 == e.getStatusCode()){
+            }else{
+                e.printStackTrace();
+            }
+        }        
+    }
 }
