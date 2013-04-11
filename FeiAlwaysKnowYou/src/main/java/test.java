@@ -1,6 +1,6 @@
 import java.io.File;
 
-import com.changeFilesEncode.ChangeFileEncode;
+import com.changeFilesEncodeApp.MainFrame;
 
 /*
  * @(#)test.java 2013-3-28 ����09:49:35 FeiAlwaysKnowYou Copyright 2013
@@ -27,8 +27,9 @@ public class test {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        File f = new File("d://test.doc");
-        System.out.println(f.getAbsolutePath());
+//        File f = new File("d://test.doc");
+//        System.out.println(f.getAbsolutePath());
+        new MainFrame();
         
     }
 }
